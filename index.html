@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Natnael Berhane | Cyber Security Portfolio</title>
+  <meta name="description" content="Cyber Security Analyst | Full Stack Developer | Computer Engineer" />
+  <meta name="author" content="Natnael Berhane" />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+  
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  
+  <style>
+    /* ===== CSS Variables ===== */
+    :root {
+      --primary-red: #ff2e2e;
+      --primary-blue: #2e5bff;
+      --dark: #0a0a0a;
+      --darker: #050505;
+      --light: #f5f5f5;
+      --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      --section-padding: 6rem 2rem;
+      --border-radius: 15px;
+    }
+    
+    /* ===== Base Styles ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 100%; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--darker);
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255, 46, 46, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 46, 255, 0.05) 0%, transparent 20%);
+    }
+    
+    /* ===== Reusable Components ===== */
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: var(--section-padding); position: relative; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 1rem 2rem; border-radius: 50px; text-decoration: none;
+      font-weight: bold; transition: var(--transition); cursor: pointer;
+      border: none; font-size: 1rem;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+      color: white;
+    }
+    .btn-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 46, 46, 0.5),
+                  0 10px 30px rgba(46, 91, 255, 0.5);
+    }
+    .btn-outline {
+      background: transparent; color: white; border: 2px solid white;
+    }
+    .btn-outline:hover {
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+      color: white; border: none;
+      box-shadow: 0 10px 30px rgba(255, 46, 46, 0.5),
+                  0 10px 30px rgba(46, 91, 255, 0.5);
+    }
+    
+    /* ===== Background Effects ===== */
+    .grid-bg {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background:
+        linear-gradient(rgba(255,46,46,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,91,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -2; animation: gridMove 60s linear infinite;
+    }
+    
+    /* ===== Animations ===== */
+    @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 1000px 1000px; } }
+    @keyframes textGlowRedBlue {
+      from { text-shadow: 0 0 10px var(--primary-red), 0 0 20px var(--primary-blue); }
+      to   { text-shadow: 0 0 20px var(--primary-red), 0 0 30px var(--primary-blue); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* ===== Header & Navigation ===== */
+    #navbar {
+      position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 2rem;
+      z-index: 1000; backdrop-filter: blur(10px);
+      background: rgba(10, 10, 10, 0.8);
+      border-bottom: 1px solid rgba(255, 46, 46, 0.1);
+    }
+    #navbar ul { display: flex; justify-content: center; list-style: none; gap: 2rem; flex-wrap: wrap; }
+    #navbar a {
+      color: var(--light); text-decoration: none; font-weight: 600;
+      padding: 0.5rem 1rem; border-radius: 50px; transition: var(--transition);
+      position: relative;
+    }
+    #navbar a::after {
+      content: '';
+      position: absolute; bottom: 0; left: 50%;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+      transition: width 0.3s ease, left 0.3s ease;
+    }
+    #navbar a:hover::after { width: 100%; left: 0; }
+    #navbar a:hover {
+      color: var(--primary-red);
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* ===== Hero Section ===== */
+    #hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      padding: 0 2rem; position: relative;
+    }
+    #hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem); margin: 0;
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: 2px; line-height: 1.2;
+      animation: textGlowRedBlue 3s ease-in-out infinite alternate;
+    }
+    #hero p {
+      margin-top: 0.5rem; font-size: 1.3rem; color: white;
+    }
+    
+    /* ===== Skills Section ===== */
+    #skills { max-width: 900px; margin: 0 auto; }
+    #skills h2 {
+      text-align: center; font-size: 2.8rem; margin-bottom: 2rem;
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: textGlowRedBlue 3s ease-in-out infinite alternate;
+    }
+    .skills-container {
+      display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+    }
+    .skill-section {
+      background: rgba(20, 20, 20, 0.8); backdrop-filter: blur(10px);
+      border-radius: var(--border-radius); padding: 1.5rem;
+      flex: 1 1 30%; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .skill-section h3 {
+      font-size: 1.8rem; color: transparent;
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      animation: textGlowRedBlue 3s ease-in-out infinite alternate;
+    }
+    .skill-section ul { list-style: none; padding-left: 0; }
+    .skill-section ul li {
+      font-size: 1rem; padding-left: 1rem; margin-bottom: 0.7rem;
+      color: var(--light); position: relative;
+    }
+    .skill-section ul li::before {
+      content: '▹'; position: absolute; left: 0; color: var(--primary-red);
+    }
+    
+    /* ===== Professional Credentials ===== */
+    #credentials { max-width: 900px; margin: 3rem auto;
+      background: rgba(20, 20, 20, 0.8); backdrop-filter: blur(10px);
+      border-radius: var(--border-radius); padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); color: var(--light);
+    }
+    #credentials h2 {
+      font-size: 2.5rem; text-align: center; margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: textGlowRedBlue 3s ease-in-out infinite alternate;
+    }
+    #credentials ul { list-style: none; padding-left: 0; max-width: 600px; margin: 0 auto; }
+    #credentials ul li {
+      padding-left: 1rem; margin-bottom: 1rem; font-size: 1.1rem; position: relative;
+    }
+    #credentials ul li::before {
+      content: '▹'; position: absolute; left: 0; color: var(--primary-blue);
+    }
+    
+    /* ===== Projects Section ===== */
+    #projects { max-width: 900px; margin: 3rem auto; text-align: center; }
+    #projects h2 {
+      font-size: 2.8rem; margin-bottom: 2rem;
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: textGlowRedBlue 3s ease-in-out infinite alternate;
+    }
+    .project-buttons {
+      display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+    }
+    
+    /* ===== CV Section ===== */
+    #cv { max-width: 900px; margin: 3rem auto; text-align: center; }
+    #cv h2 {
+      font-size: 2.8rem; margin-bottom: 2rem;
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: textGlowRedBlue 3s ease-in-out infinite alternate;
+    }
+    #download-cv-btn { margin-top: 1rem; }
+    
+    /* ===== Contact Section ===== */
+    #contact { max-width: 900px; margin: 3rem auto 6rem; text-align: center; }
+    #contact h2 {
+      font-size: 2.5rem; margin-bottom: 0.4rem;
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: textGlowRedBlue 3s ease-in-out infinite alternate;
+    }
+    #contact p { margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--light); }
+    .contact-links {
+      display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+    }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 1rem 2rem; border-radius: 50px; text-decoration: none;
+      font-weight: bold; transition: var(--transition);
+      background: rgba(255, 46, 46, 0.1); color: var(--light);
+      border: 1px solid rgba(255, 46, 46, 0.3);
+    }
+    .contact-btn:hover {
+      background: rgba(255, 46, 46, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255, 46, 46, 0.2);
+    }
+    
+    /* ===== Footer ===== */
+    footer {
+      text-align: center; padding: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 3rem;
+    }
+    
+    /* ===== Utility Classes ===== */
+    .fade-in { animation: fadeIn 1s ease-out forwards; }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .text-center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    
+    /* ===== Responsive Design ===== */
+    @media (max-width: 768px) {
+      :root { --section-padding: 4rem 1.5rem; }
+      #navbar ul { gap: 1rem; }
+      .skills-container { flex-direction: column; gap: 1.5rem; }
+      .project-buttons { flex-direction: column; gap: 1rem; }
+    }
+    @media (max-width: 480px) {
+      #hero h1 { font-size: 3rem; }
+      #skills h2, #credentials h2, #projects h2, #cv h2, #contact h2 {
+        font-size: 2rem; margin-bottom: 1rem;
+      }
+      .contact-links { flex-direction: column; align-items: center; }
+      .btn, .contact-btn {
+        width: 100%; text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav id="navbar">
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero" class="section">
+    <div class="container">
+      <h1 class="typewriter">Natnael Berhane</h1>
+      <p class="glow-text fade-in">Cyber Security Analyst & Full Stack Developer</p>
+    </div>
+  </section>
+
+  <section id="skills" class="section">
+    <div class="container">
+      <h2>Core Skills</h2>
+      <div class="skills-container">
+        <div class="skill-section">
+          <h3>Cybersecurity</h3>
+          <ul>
+            <li>Network Security</li>
+            <li>Ethical Hacking</li>
+            <li>Vulnerability Assessment</li>
+            <li>Penetration Testing</li>
+            <li>Security Audits</li>
+          </ul>
+        </div>
+        <div class="skill-section">
+          <h3>Development</h3>
+          <ul>
+            <li>Python Programming</li>
+            <li>Web Development</li>
+            <li>Algorithm Design</li>
+            <li>Database Management</li>
+            <li>Automation Scripting</li>
+          </ul>
+        </div>
+        <div class="skill-section">
+          <h3>IT & Engineering</h3>
+          <ul>
+            <li>Computer Networking</li>
+            <li>System Administration</li>
+            <li>IT Support</li>
+            <li>Software Engineering</li>
+            <li>Computer Engineering</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="credentials" class="section">
+    <div class="container">
+      <h2>Professional Credentials</h2>
+      <ul>
+        <li>Junior Cybersecurity Analyst</li>
+        <li>Programming skills with Python, HTML, CSS</li>
+        <li>Information Technology support</li>
+        <li>Junior Computer Engineer</li>
+        <li>Junior Software Engineer</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="project-buttons">
+        <a
+          href="https://nattbb.github.io/Galaxy-Universe/"
+          class="btn btn-primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fas fa-eye"></i> View Project
+        </a>
+        <a
+          href="https://github.com/nattbb/galaxy-universe"
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fab fa-github"></i> View Project
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="cv" class="section">
+    <div class="container">
+      <h2>CV</h2>
+      <!-- ✂️ Only this tag was updated -->
+      <a
+        id="download-cv-btn"
+        href="downloads/Natnael CV.pdf"
+        download="Natnael CV.pdf"
+        class="btn btn-primary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fas fa-download"></i> Download CV
+      </a>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <h2>Get In Touch</h2>
+      <p>I'm always interested in hearing about new projects and opportunities.</p>
+      <div class="contact-links">
+        <a href="mailto:natyberhane0@gmail.com" class="contact-btn">
+          <i class="fas fa-envelope"></i> Email
+        </a>
+        <a href="https://github.com/nattbb" target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        <a
+          href="https://www.linkedin.com/in/natnael-berhane-5651b7347"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-btn"
+        >
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Natnael Berhane. All rights reserved.</p>
+  </footer>
+</body>
+</html>
